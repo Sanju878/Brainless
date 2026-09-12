@@ -1,0 +1,3309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Idiyappam Length Calculator</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#fff5df;
+    color:#4b260f;
+    overflow-x:hidden;
+}
+
+.slide{
+    min-height:100vh;
+    width:100%;
+    position:relative;
+}
+
+#slide1{
+    display:block;
+}
+
+#slide2{
+    display:none;
+    background:
+        radial-gradient(circle at 20% 20%,#ffe7a4,transparent 25%),
+        linear-gradient(135deg,#241006,#70300e,#241006);
+    color:white;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    padding:18px 7%;
+    background:
+        linear-gradient(135deg,#5b2108,#b85b1c,#6c2909);
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+    position:relative;
+    z-index:20;
+}
+
+header h1{
+    font-size:27px;
+}
+
+.header-food{
+    font-size:30px;
+    animation:foodBounce 2s infinite;
+}
+
+@keyframes foodBounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-8px);}
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+    background:#ffe4a4;
+    color:#71300c;
+    padding:10px;
+    font-weight:bold;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.marquee span{
+    display:inline-block;
+    animation:marqueeMove 15s linear infinite;
+}
+
+@keyframes marqueeMove{
+    from{transform:translateX(100%);}
+    to{transform:translateX(-100%);}
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    text-align:center;
+    padding:55px 20px 30px;
+}
+
+.hero h2{
+    font-size:clamp(38px,7vw,70px);
+    color:#7c320d;
+    text-shadow:
+        3px 3px #ffd76a,
+        7px 7px 20px rgba(0,0,0,.15);
+    animation:heroAppear 1.2s ease;
+}
+
+.hero h2 span{
+    color:#d7611a;
+}
+
+.hero p{
+    max-width:750px;
+    margin:18px auto;
+    font-size:18px;
+    line-height:1.7;
+    color:#684b38;
+}
+
+@keyframes heroAppear{
+    0%{
+        opacity:0;
+        transform:scale(.5) rotate(-5deg);
+    }
+    70%{
+        transform:scale(1.08);
+    }
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+
+/* =========================================================
+   FOOD SHOWCASE
+========================================================= */
+
+.food-showcase{
+    width:90%;
+    max-width:1100px;
+    margin:10px auto 35px;
+    padding:25px;
+    border-radius:30px;
+    background:
+        linear-gradient(135deg,#67270b,#a94d16,#622307);
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    color:white;
+    box-shadow:0 20px 45px rgba(70,25,0,.35);
+    overflow:hidden;
+}
+
+.plate{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle,
+            white 0 58%,
+            #d7d7d7 59% 68%,
+            white 69%
+        );
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 15px 25px rgba(0,0,0,.35);
+    animation:plateFloat 3s infinite ease-in-out;
+}
+
+.fake-idiyappam{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:
+        repeating-radial-gradient(
+            circle,
+            white 0 3px,
+            #ddd 4px,
+            white 6px
+        );
+}
+
+@keyframes plateFloat{
+    0%,100%{
+        transform:translateY(0) rotate(-2deg);
+    }
+    50%{
+        transform:translateY(-12px) rotate(2deg);
+    }
+}
+
+.curry{
+    font-size:85px;
+    animation:curryMove 2s infinite;
+}
+
+@keyframes curryMove{
+    0%,100%{transform:rotate(-5deg);}
+    50%{transform:rotate(5deg) scale(1.08);}
+}
+
+
+/* =========================================================
+   CALCULATOR
+========================================================= */
+
+.container{
+    width:92%;
+    max-width:1150px;
+    margin:auto;
+}
+
+.calculator{
+    background:rgba(255,255,255,.96);
+    border-radius:30px;
+    padding:32px;
+    box-shadow:0 25px 60px rgba(80,35,0,.2);
+    border:2px solid #e2b56a;
+    margin-bottom:50px;
+}
+
+.calculator h3{
+    color:#85370e;
+    font-size:27px;
+    margin-bottom:25px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.input-group input{
+    padding:15px;
+    border:2px solid #dfc69d;
+    border-radius:13px;
+    font-size:16px;
+    transition:.3s;
+}
+
+.input-group input:focus{
+    outline:none;
+    border-color:#d65e17;
+    transform:scale(1.03);
+    box-shadow:0 0 18px rgba(214,94,23,.25);
+}
+
+.unit{
+    font-size:12px;
+    color:#806d5e;
+    margin-top:5px;
+}
+
+.density{
+    margin-top:22px;
+    padding:18px;
+    background:
+        linear-gradient(135deg,#fff5c9,#ffe5a3);
+    border-radius:16px;
+    border:2px dashed #d29a43;
+}
+
+.density input{
+    width:140px;
+    padding:10px;
+    margin:10px;
+    border-radius:8px;
+    border:1px solid #c7a36e;
+}
+
+.calculate{
+    width:100%;
+    margin-top:25px;
+    padding:18px;
+    border:none;
+    border-radius:18px;
+    background:
+        linear-gradient(135deg,#df6718,#7b2d09);
+    color:white;
+    font-size:19px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:
+        0 7px 0 #552006,
+        0 15px 30px rgba(80,25,0,.3);
+    transition:.2s;
+}
+
+.calculate:hover{
+    transform:translateY(-5px);
+}
+
+.calculate:active{
+    transform:translateY(4px);
+    box-shadow:0 3px 0 #552006;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error{
+    display:none;
+    margin-top:15px;
+    padding:14px;
+    border-radius:10px;
+    background:#ffdede;
+    color:#9b0000;
+    animation:shake .4s;
+}
+
+@keyframes shake{
+    25%{transform:translateX(-8px);}
+    50%{transform:translateX(8px);}
+    75%{transform:translateX(-5px);}
+}
+
+
+/* =========================================================
+   RESULTS
+========================================================= */
+
+#results{
+    display:none;
+    margin-top:30px;
+    animation:resultAppear .8s ease;
+}
+
+@keyframes resultAppear{
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.result-box{
+    padding:22px;
+    text-align:center;
+    border-radius:18px;
+    background:
+        linear-gradient(135deg,#fff5d0,#ffe2a0);
+    border:2px solid #deb25d;
+    transition:.3s;
+}
+
+.result-box:hover{
+    transform:translateY(-8px) rotate(2deg);
+}
+
+.result-box p{
+    margin-top:8px;
+    font-size:30px;
+    font-weight:bold;
+    color:#85360d;
+}
+
+.total-box{
+    margin-top:18px;
+    padding:25px;
+    text-align:center;
+    border-radius:20px;
+    background:
+        linear-gradient(135deg,#dff5c9,#a7dc82);
+    border:3px solid #5b963d;
+    animation:totalGlow 2s infinite;
+}
+
+.total-box p{
+    font-size:42px;
+    margin-top:8px;
+    color:#276313;
+    font-weight:bold;
+}
+
+@keyframes totalGlow{
+    50%{
+        transform:scale(1.03);
+        box-shadow:0 0 25px rgba(90,150,50,.35);
+    }
+}
+
+.watch-button{
+    width:100%;
+    margin-top:20px;
+    padding:18px;
+    border:none;
+    border-radius:18px;
+    background:
+        linear-gradient(135deg,#ffb52e,#e85d16);
+    color:white;
+    font-size:19px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(180,70,0,.3);
+    animation:watchPulse 1.5s infinite;
+}
+
+@keyframes watchPulse{
+    50%{transform:scale(1.03);}
+}
+
+.formula{
+    margin-top:20px;
+    padding:22px;
+    background:#fffaf0;
+    border-radius:16px;
+    border:2px dashed #d09b4e;
+    line-height:1.9;
+}
+
+.formula h4{
+    color:#85370e;
+    margin-bottom:10px;
+}
+
+
+/* =========================================================
+   ANIMATION SLIDE
+========================================================= */
+
+.animation-header{
+    text-align:center;
+    padding:25px 20px 10px;
+}
+
+.animation-header h1{
+    font-size:clamp(35px,6vw,65px);
+    color:#ffd76b;
+    text-shadow:4px 4px 0 #632409;
+    animation:titleFloat 2s infinite;
+}
+
+.animation-header p{
+    color:#ffe6b2;
+    margin-top:10px;
+    font-size:18px;
+}
+
+@keyframes titleFloat{
+    50%{transform:translateY(-6px);}
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.progress-container{
+    width:90%;
+    max-width:800px;
+    margin:20px auto;
+    height:12px;
+    background:rgba(255,255,255,.2);
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress{
+    height:100%;
+    width:0%;
+    background:
+        linear-gradient(90deg,#ffd34e,#ff8a24,#fff);
+    animation:progressMove 18s infinite linear;
+}
+
+@keyframes progressMove{
+    from{width:0%;}
+    to{width:100%;}
+}
+
+
+/* =========================================================
+   REALISTIC ANIMATION STAGE
+========================================================= */
+
+.stage{
+    width:94%;
+    max-width:1100px;
+    height:600px;
+    margin:20px auto;
+    position:relative;
+    overflow:hidden;
+    border-radius:35px;
+    border:5px solid #c8944f;
+
+    background:
+        linear-gradient(
+            rgba(0,0,0,.12),
+            rgba(0,0,0,.42)
+        ),
+        repeating-linear-gradient(
+            90deg,
+            #49301f 0 45px,
+            #593923 45px 90px,
+            #40291c 90px 135px
+        );
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.55);
+}
+
+.stage:before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(255,255,255,.12),
+            transparent 45%
+        );
+
+    pointer-events:none;
+    z-index:1;
+}
+
+.stage:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 35%,
+            rgba(0,0,0,.55) 100%
+        );
+    z-index:20;
+}
+
+
+/* =========================================================
+   SCENES
+========================================================= */
+
+.scene{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+}
+
+.scene-inner{
+    position:relative;
+    width:500px;
+    height:500px;
+}
+
+.scene.mixing{
+    animation:sceneMixing 18s infinite;
+}
+
+.scene.kneading{
+    animation:sceneKneading 18s infinite;
+}
+
+.scene.filling{
+    animation:sceneFilling 18s infinite;
+}
+
+.scene.pressing{
+    animation:scenePressing 18s infinite;
+}
+
+.scene.steaming{
+    animation:sceneSteaming 18s infinite;
+}
+
+.scene.served{
+    animation:sceneServed 18s infinite;
+}
+
+@keyframes sceneMixing{
+    0%{opacity:1}
+    14%{opacity:1}
+    16%{opacity:0}
+    100%{opacity:0}
+}
+
+@keyframes sceneKneading{
+    0%,15%{opacity:0}
+    17%{opacity:1}
+    29%{opacity:1}
+    31%{opacity:0}
+    100%{opacity:0}
+}
+
+@keyframes sceneFilling{
+    0%,30%{opacity:0}
+    32%{opacity:1}
+    43%{opacity:1}
+    45%{opacity:0}
+    100%{opacity:0}
+}
+
+@keyframes scenePressing{
+    0%,44%{opacity:0}
+    46%{opacity:1}
+    67%{opacity:1}
+    69%{opacity:0}
+    100%{opacity:0}
+}
+
+@keyframes sceneSteaming{
+    0%,68%{opacity:0}
+    70%{opacity:1}
+    82%{opacity:1}
+    84%{opacity:0}
+    100%{opacity:0}
+}
+
+@keyframes sceneServed{
+    0%,83%{opacity:0}
+    85%{opacity:1}
+    98%{opacity:1}
+    100%{opacity:0}
+}
+
+
+/* =========================================================
+   SCENE LABEL
+========================================================= */
+
+.process-label{
+    position:absolute;
+    left:50%;
+    top:25px;
+    transform:translateX(-50%);
+    padding:13px 25px;
+    border-radius:30px;
+    background:rgba(35,12,0,.82);
+    border:2px solid #ffd66b;
+    color:#ffe7a5;
+    font-size:20px;
+    font-weight:bold;
+    z-index:30;
+    min-width:350px;
+    text-align:center;
+}
+
+.process-label:after{
+    content:"🥣 Preparing the dough...";
+    animation:labelChange 18s infinite;
+}
+
+@keyframes labelChange{
+
+    0%,15%{
+        content:"🥣 Mixing flour + hot water...";
+    }
+
+    16%,30%{
+        content:"🤲 Kneading the soft dough...";
+    }
+
+    31%,44%{
+        content:"🫙 Loading the idiyappam press...";
+    }
+
+    45%,68%{
+        content:"🌀 Extruding thin strands through 0.1 cm holes...";
+    }
+
+    69%,84%{
+        content:"♨️ Steaming the idiyappam...";
+    }
+
+    85%,100%{
+        content:"🍽️ Beautiful idiyappam is ready!";
+    }
+}
+
+
+/* =========================================================
+   STAGE 1 — REALISTIC MIXING
+========================================================= */
+
+.mixing-table{
+    position:absolute;
+    bottom:70px;
+    left:50%;
+    transform:translateX(-50%);
+    width:380px;
+    height:28px;
+    border-radius:50%;
+    background:linear-gradient(#7d7d7d,#333);
+    box-shadow:0 15px 25px rgba(0,0,0,.5);
+}
+
+.real-bowl{
+    position:absolute;
+    left:50%;
+    bottom:95px;
+    transform:translateX(-50%);
+    width:330px;
+    height:170px;
+    border-radius:0 0 165px 165px;
+    background:
+        linear-gradient(
+            105deg,
+            #777,
+            #eee 20%,
+            #a5a5a5 48%,
+            #f8f8f8 70%,
+            #686868
+        );
+    box-shadow:
+        inset 0 -20px 25px rgba(0,0,0,.3),
+        0 25px 30px rgba(0,0,0,.5);
+}
+
+.real-bowl:before{
+    content:"";
+    position:absolute;
+    left:-5px;
+    top:-18px;
+    width:340px;
+    height:45px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse,
+            #f8f8f8 0 40%,
+            #bdbdbd 43% 65%,
+            #666 70%
+        );
+    box-shadow:0 5px 10px rgba(0,0,0,.35);
+}
+
+.flour{
+    position:absolute;
+    left:50%;
+    bottom:132px;
+    transform:translateX(-50%);
+    width:240px;
+    height:72px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse at 40% 30%,
+            #fffef7,
+            #eadfc9 75%,
+            #cbb995
+        );
+    animation:flourMix 18s infinite;
+}
+
+@keyframes flourMix{
+    0%,2%{
+        transform:translateX(-50%) scale(1);
+    }
+    6%{
+        transform:translateX(-50%) scale(1.05,.9);
+    }
+    10%{
+        transform:translateX(-50%) scale(.94,1.08);
+    }
+    14%{
+        transform:translateX(-50%) scale(1.05,.94);
+    }
+    16%,100%{
+        transform:translateX(-50%) scale(1);
+    }
+}
+
+.hot-water{
+    position:absolute;
+    left:68%;
+    top:80px;
+    width:9px;
+    height:0;
+    border-radius:10px;
+    background:
+        linear-gradient(
+            90deg,
+            #d5f2ff,
+            white,
+            #a5dfff
+        );
+    box-shadow:0 0 8px rgba(180,230,255,.8);
+    animation:hotWater 18s infinite;
+}
+
+@keyframes hotWater{
+    0%,2%{
+        height:0;
+        opacity:0;
+    }
+    3%{
+        height:210px;
+        opacity:1;
+    }
+    11%{
+        height:210px;
+        opacity:1;
+    }
+    14%,100%{
+        height:0;
+        opacity:0;
+    }
+}
+
+.water-drops{
+    position:absolute;
+    left:68%;
+    top:270px;
+    font-size:15px;
+    opacity:0;
+    animation:waterDrops 18s infinite;
+}
+
+@keyframes waterDrops{
+    0%,3%{opacity:0;transform:translateY(-30px);}
+    7%{opacity:1;}
+    12%{opacity:0;transform:translateY(30px);}
+    100%{opacity:0;}
+}
+
+.spoon{
+    position:absolute;
+    left:70%;
+    bottom:155px;
+    font-size:65px;
+    transform-origin:20% 80%;
+    animation:spoonMix 18s infinite;
+}
+
+@keyframes spoonMix{
+    0%,3%{
+        opacity:0;
+        transform:rotate(-20deg);
+    }
+    5%{
+        opacity:1;
+    }
+    7%{
+        transform:rotate(20deg);
+    }
+    9%{
+        transform:rotate(-25deg);
+    }
+    11%{
+        transform:rotate(20deg);
+    }
+    13%{
+        transform:rotate(-10deg);
+    }
+    15%,100%{
+        opacity:0;
+    }
+}
+
+.mixing-steam{
+    position:absolute;
+    left:50%;
+    bottom:225px;
+    font-size:30px;
+    opacity:0;
+    animation:mixSteam 18s infinite;
+}
+
+@keyframes mixSteam{
+    0%,9%{opacity:0;}
+    10%{opacity:.7;}
+    14%{
+        opacity:0;
+        transform:translateY(-50px);
+    }
+    100%{opacity:0;}
+}
+
+
+/* =========================================================
+   STAGE 2 — KNEADING
+========================================================= */
+
+.knead-board{
+    position:absolute;
+    left:50%;
+    bottom:75px;
+    transform:translateX(-50%);
+    width:390px;
+    height:35px;
+    border-radius:50%;
+    background:
+        linear-gradient(#c79b5c,#765025);
+    box-shadow:0 15px 20px rgba(0,0,0,.5);
+}
+
+.knead-dough{
+    position:absolute;
+    left:50%;
+    bottom:110px;
+    transform:translateX(-50%);
+    width:245px;
+    height:165px;
+    border-radius:48% 52% 45% 55%;
+    background:
+        radial-gradient(
+            circle at 32% 25%,
+            white,
+            #f4ead6 48%,
+            #d9c8a9
+        );
+    box-shadow:
+        inset -15px -12px 20px rgba(100,70,30,.16),
+        0 20px 25px rgba(0,0,0,.45);
+    animation:doughKnead 18s infinite;
+}
+
+@keyframes doughKnead{
+    0%,17%{
+        transform:translateX(-50%) scale(1);
+    }
+    19%{
+        transform:translateX(-50%) scale(1.18,.78);
+    }
+    21%{
+        transform:translateX(-50%) scale(.94,1.08);
+    }
+    23%{
+        transform:translateX(-50%) scale(1.18,.78);
+    }
+    25%{
+        transform:translateX(-50%) scale(.94,1.08);
+    }
+    27%{
+        transform:translateX(-50%) scale(1.15,.82);
+    }
+    29%{
+        transform:translateX(-50%) scale(1);
+    }
+    31%,100%{
+        transform:translateX(-50%) scale(1);
+    }
+}
+
+.hand-left,
+.hand-right{
+    position:absolute;
+    font-size:82px;
+    bottom:195px;
+    z-index:5;
+}
+
+.hand-left{
+    left:23%;
+    animation:handLeft 18s infinite;
+}
+
+.hand-right{
+    right:23%;
+    animation:handRight 18s infinite;
+}
+
+@keyframes handLeft{
+    0%,17%{
+        transform:translateY(-20px) rotate(-20deg);
+        opacity:0;
+    }
+    19%{
+        opacity:1;
+        transform:translateY(35px) rotate(8deg);
+    }
+    21%{
+        transform:translateY(0) rotate(-15deg);
+    }
+    23%{
+        transform:translateY(35px) rotate(8deg);
+    }
+    27%{
+        transform:translateY(0) rotate(-10deg);
+    }
+    30%,100%{
+        opacity:0;
+    }
+}
+
+@keyframes handRight{
+    0%,17%{
+        transform:translateY(-20px) rotate(20deg);
+        opacity:0;
+    }
+    19%{
+        opacity:1;
+        transform:translateY(35px) rotate(-8deg);
+    }
+    21%{
+        transform:translateY(0) rotate(15deg);
+    }
+    23%{
+        transform:translateY(35px) rotate(-8deg);
+    }
+    27%{
+        transform:translateY(0) rotate(10deg);
+    }
+    30%,100%{
+        opacity:0;
+    }
+}
+
+.oil-shine{
+    position:absolute;
+    left:50%;
+    top:100px;
+    transform:translateX(-50%);
+    font-size:28px;
+    opacity:0;
+    animation:oilShine 18s infinite;
+}
+
+@keyframes oilShine{
+    0%,18%{
+        opacity:0;
+        transform:translateX(-50%) translateY(-20px);
+    }
+    20%{
+        opacity:1;
+    }
+    22%{
+        opacity:0;
+        transform:translateX(-50%) translateY(45px);
+    }
+    100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   STAGE 3 — FILLING PRESS
+========================================================= */
+
+.press-body{
+    position:absolute;
+    left:50%;
+    bottom:115px;
+    transform:translateX(-50%);
+    width:185px;
+    height:210px;
+    border-radius:25px 25px 45px 45px;
+    background:
+        linear-gradient(
+            90deg,
+            #614109,
+            #c68d20 12%,
+            #f0c85e 30%,
+            #bd8218 60%,
+            #6a4708
+        );
+    box-shadow:
+        inset 10px 0 15px rgba(255,255,255,.2),
+        inset -15px 0 20px rgba(0,0,0,.35),
+        0 25px 30px rgba(0,0,0,.5);
+}
+
+.press-rim{
+    position:absolute;
+    left:50%;
+    top:-18px;
+    transform:translateX(-50%);
+    width:200px;
+    height:45px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse,
+            #f6d777 0 45%,
+            #c28b20 48% 70%,
+            #654207 75%
+        );
+}
+
+.press-top{
+    position:absolute;
+    left:50%;
+    bottom:315px;
+    transform:translateX(-50%);
+    width:135px;
+    height:65px;
+    border-radius:15px 15px 8px 8px;
+    background:
+        linear-gradient(
+            90deg,
+            #614109,
+            #dca839,
+            #f6d36e,
+            #8b5d0d
+        );
+    box-shadow:0 12px 18px rgba(0,0,0,.45);
+    animation:pressTopDown 18s infinite;
+}
+
+@keyframes pressTopDown{
+    0%,32%{
+        transform:translateX(-50%) translateY(0);
+    }
+    38%{
+        transform:translateX(-50%) translateY(80px);
+    }
+    43%{
+        transform:translateX(-50%) translateY(80px);
+    }
+    45%,100%{
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+.dough-inside{
+    position:absolute;
+    left:50%;
+    bottom:170px;
+    transform:translateX(-50%);
+    width:125px;
+    height:100px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            white,
+            #e9dcc1 75%
+        );
+    animation:doughLoad 18s infinite;
+}
+
+@keyframes doughLoad{
+    0%,32%{
+        transform:translateX(-50%) translateY(-100px);
+        opacity:0;
+    }
+    35%{
+        opacity:1;
+    }
+    42%{
+        transform:translateX(-50%) translateY(0);
+        opacity:1;
+    }
+    45%,100%{
+        opacity:0;
+    }
+}
+
+.filling-hand{
+    position:absolute;
+    left:70%;
+    top:145px;
+    font-size:65px;
+    opacity:0;
+    animation:fillingHand 18s infinite;
+}
+
+@keyframes fillingHand{
+    0%,32%{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+    35%{
+        opacity:1;
+    }
+    41%{
+        opacity:1;
+        transform:translateY(90px);
+    }
+    45%,100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   STAGE 4 — REALISTIC PRESSING
+========================================================= */
+
+.press-floor{
+    position:absolute;
+    left:50%;
+    bottom:75px;
+    transform:translateX(-50%);
+    width:430px;
+    height:45px;
+    border-radius:50%;
+    background:
+        linear-gradient(#d8d8d8,#777);
+    box-shadow:
+        0 20px 25px rgba(0,0,0,.5);
+}
+
+
+/* PRESS HEAD */
+
+.real-press-head{
+    position:absolute;
+    left:50%;
+    top:90px;
+    transform:translateX(-50%);
+    width:155px;
+    height:95px;
+    border-radius:20px 20px 45px 45px;
+    background:
+        linear-gradient(
+            90deg,
+            #6b470c,
+            #d4a02f 15%,
+            #f2ca68 40%,
+            #c28b1c 70%,
+            #674409
+        );
+    box-shadow:
+        inset 0 8px 10px rgba(255,255,255,.25),
+        0 15px 25px rgba(0,0,0,.55);
+    z-index:12;
+    animation:pressHeadMove 18s infinite;
+}
+
+@keyframes pressHeadMove{
+    0%,46%{
+        transform:translateX(-50%) translateY(0);
+    }
+    52%{
+        transform:translateX(-50%) translateY(130px);
+    }
+    65%{
+        transform:translateX(-50%) translateY(130px);
+    }
+    68%{
+        transform:translateX(-50%) translateY(0);
+    }
+    100%{
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+.press-handle{
+    position:absolute;
+    left:50%;
+    top:-75px;
+    transform:translateX(-50%);
+    width:65px;
+    height:100px;
+    border-radius:35px;
+    background:
+        linear-gradient(
+            90deg,
+            #3d2508,
+            #9b6b17,
+            #4b2e08
+        );
+}
+
+.press-neck{
+    position:absolute;
+    left:50%;
+    top:-25px;
+    transform:translateX(-50%);
+    width:90px;
+    height:35px;
+    border-radius:20px;
+    background:#67440c;
+}
+
+
+/* =========================================================
+   PERFORATED DISC WITH 0.1 CM HOLES
+========================================================= */
+
+.hole-disc{
+    position:absolute;
+    left:50%;
+    top:220px;
+    transform:translateX(-50%);
+    width:250px;
+    height:95px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            ellipse,
+            #fafafa 0 30%,
+            #bdbdbd 70%,
+            #777 100%
+        );
+    box-shadow:
+        inset 0 -10px 15px rgba(0,0,0,.35),
+        0 12px 20px rgba(0,0,0,.45);
+    z-index:8;
+}
+
+.holes{
+    position:absolute;
+    left:50%;
+    top:225px;
+    transform:translateX(-50%);
+    width:220px;
+    height:80px;
+    z-index:10;
+
+    display:grid;
+    grid-template-columns:repeat(11,1fr);
+    grid-template-rows:repeat(3,1fr);
+    gap:7px;
+    padding:12px 15px;
+}
+
+.hole{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #333,
+            #111
+        );
+    box-shadow:
+        inset 1px 1px 2px rgba(255,255,255,.25),
+        0 1px 2px rgba(0,0,0,.5);
+}
+
+
+/* =========================================================
+   DOUGH INSIDE PRESS
+========================================================= */
+
+.press-dough{
+    position:absolute;
+    left:50%;
+    top:180px;
+    transform:translateX(-50%);
+    width:150px;
+    height:90px;
+    border-radius:50%;
+    background:
+        radial-gradient(
+            circle at 35% 25%,
+            #fff,
+            #eadfc9 75%
+        );
+    z-index:6;
+    animation:pressDough 18s infinite;
+}
+
+@keyframes pressDough{
+    0%,48%{
+        transform:translateX(-50%) scale(1);
+    }
+    53%{
+        transform:translateX(-50%) scale(.88,.55);
+    }
+    60%{
+        transform:translateX(-50%) scale(.78,.42);
+    }
+    67%{
+        transform:translateX(-50%) scale(.7,.35);
+    }
+    69%,100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   EXTRUDED STRANDS
+========================================================= */
+
+.extrusion{
+    position:absolute;
+    left:50%;
+    top:295px;
+    transform:translateX(-50%);
+    width:250px;
+    height:210px;
+    z-index:5;
+}
+
+.strand{
+    position:absolute;
+    top:0;
+    width:5px;
+    height:0;
+    border-radius:10px;
+    background:
+        linear-gradient(
+            90deg,
+            #fff,
+            #eee8d8,
+            #fff
+        );
+    box-shadow:
+        0 0 3px rgba(255,255,255,.7);
+    transform-origin:top;
+    animation:strandGrow 18s infinite;
+}
+
+.strand:nth-child(1){left:28px;animation-delay:0s;}
+.strand:nth-child(2){left:48px;animation-delay:.08s;}
+.strand:nth-child(3){left:68px;animation-delay:.16s;}
+.strand:nth-child(4){left:88px;animation-delay:.24s;}
+.strand:nth-child(5){left:108px;animation-delay:.32s;}
+.strand:nth-child(6){left:128px;animation-delay:.4s;}
+.strand:nth-child(7){left:148px;animation-delay:.48s;}
+.strand:nth-child(8){left:168px;animation-delay:.56s;}
+.strand:nth-child(9){left:188px;animation-delay:.64s;}
+.strand:nth-child(10){left:208px;animation-delay:.72s;}
+
+@keyframes strandGrow{
+
+    0%,51%{
+        height:0;
+        opacity:0;
+    }
+
+    54%{
+        height:35px;
+        opacity:1;
+    }
+
+    58%{
+        height:80px;
+        opacity:1;
+    }
+
+    63%{
+        height:140px;
+        opacity:1;
+    }
+
+    67%{
+        height:185px;
+        opacity:1;
+    }
+
+    70%,100%{
+        height:185px;
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   SPIRAL NEST
+========================================================= */
+
+.nest-svg{
+    position:absolute;
+    left:50%;
+    bottom:62px;
+    transform:translateX(-50%);
+    width:360px;
+    height:190px;
+    z-index:4;
+}
+
+.nest-svg path{
+    fill:none;
+    stroke:#fffdf4;
+    stroke-width:5;
+    stroke-linecap:round;
+    opacity:.95;
+    filter:drop-shadow(0 2px 2px rgba(0,0,0,.5));
+}
+
+.nest-svg .nest-shadow{
+    stroke:#d9cdb8;
+    stroke-width:8;
+    opacity:.25;
+}
+
+.nest-svg{
+    animation:nestForm 18s infinite;
+}
+
+@keyframes nestForm{
+    0%,50%{
+        opacity:0;
+        transform:translateX(-50%) scale(.4);
+    }
+    55%{
+        opacity:.2;
+        transform:translateX(-50%) scale(.55);
+    }
+    60%{
+        opacity:.6;
+        transform:translateX(-50%) scale(.8);
+    }
+    67%{
+        opacity:1;
+        transform:translateX(-50%) scale(1);
+    }
+    69%,100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   CALCULATION PANEL DURING PRESSING
+========================================================= */
+
+.calc-overlay{
+    position:absolute;
+    right:25px;
+    bottom:25px;
+    width:270px;
+    padding:16px;
+    border-radius:18px;
+    background:rgba(25,10,0,.82);
+    border:1px solid #dca448;
+    color:#ffecc1;
+    z-index:25;
+    box-shadow:0 10px 25px rgba(0,0,0,.45);
+    opacity:0;
+    animation:calcPanel 18s infinite;
+}
+
+@keyframes calcPanel{
+    0%,44%{opacity:0;transform:translateY(20px);}
+    48%{opacity:1;transform:translateY(0);}
+    68%{opacity:1;}
+    70%,100%{opacity:0;}
+}
+
+.calc-overlay h3{
+    color:#ffd66b;
+    margin-bottom:8px;
+    font-size:17px;
+}
+
+.calc-line{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    padding:5px 0;
+    font-size:14px;
+}
+
+.calc-line strong{
+    color:white;
+}
+
+
+/* =========================================================
+   STAGE 5 — REALISTIC STEAMING
+========================================================= */
+
+.steam-pot{
+    position:absolute;
+    left:50%;
+    bottom:75px;
+    transform:translateX(-50%);
+    width:330px;
+    height:240px;
+}
+
+.pot-bottom{
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:300px;
+    height:105px;
+    border-radius:20px 20px 55px 55px;
+    background:
+        linear-gradient(
+            90deg,
+            #595959,
+            #d0d0d0 20%,
+            #8d8d8d 45%,
+            #e4e4e4 65%,
+            #555
+        );
+    box-shadow:
+        inset 0 -15px 20px rgba(0,0,0,.4),
+        0 20px 30px rgba(0,0,0,.5);
+}
+
+.steam-tier{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    height:58px;
+    border-radius:15px;
+    background:
+        linear-gradient(
+            90deg,
+            #555,
+            #d8d8d8 22%,
+            #999 50%,
+            #e0e0e0 75%,
+            #555
+        );
+    box-shadow:0 8px 12px rgba(0,0,0,.45);
+}
+
+.steam-tier.one{
+    bottom:80px;
+    width:300px;
+}
+
+.steam-tier.two{
+    bottom:125px;
+    width:275px;
+}
+
+.steam-tier.three{
+    bottom:170px;
+    width:250px;
+}
+
+.steam-lid{
+    position:absolute;
+    left:50%;
+    bottom:215px;
+    transform:translateX(-50%);
+    width:265px;
+    height:65px;
+    border-radius:50% 50% 15px 15px;
+    background:
+        linear-gradient(
+            #e5c15e,
+            #a87319
+        );
+    box-shadow:0 8px 14px rgba(0,0,0,.45);
+    animation:lidOpen 18s infinite;
+}
+
+@keyframes lidOpen{
+    0%,70%{
+        transform:translateX(-50%) rotate(0);
+    }
+    73%{
+        transform:translateX(-75%) translateY(-20px) rotate(-10deg);
+    }
+    82%{
+        transform:translateX(-75%) translateY(-20px) rotate(-10deg);
+    }
+    84%,100%{
+        transform:translateX(-50%) rotate(0);
+    }
+}
+
+.lid-knob{
+    position:absolute;
+    left:50%;
+    top:-20px;
+    transform:translateX(-50%);
+    width:45px;
+    height:28px;
+    border-radius:50%;
+    background:#8b6117;
+}
+
+.steam{
+    position:absolute;
+    bottom:230px;
+    font-size:35px;
+    opacity:0;
+    animation:steamRise 3s infinite ease-out;
+}
+
+.steam.s1{
+    left:37%;
+    animation-delay:0s;
+}
+
+.steam.s2{
+    left:49%;
+    animation-delay:.8s;
+}
+
+.steam.s3{
+    left:61%;
+    animation-delay:1.5s;
+}
+
+@keyframes steamRise{
+    0%{
+        opacity:0;
+        transform:translateY(20px) scale(.7);
+    }
+    25%{
+        opacity:.8;
+    }
+    100%{
+        opacity:0;
+        transform:
+            translateY(-160px)
+            translateX(25px)
+            scale(1.5)
+            rotate(15deg);
+    }
+}
+
+.steamed-nest{
+    position:absolute;
+    left:50%;
+    bottom:185px;
+    transform:translateX(-50%);
+    width:190px;
+    height:80px;
+    border-radius:50%;
+    background:
+        repeating-radial-gradient(
+            ellipse,
+            #fff 0 3px,
+            #ddd 4px 6px
+        );
+    opacity:0;
+    animation:nestSteam 18s infinite;
+}
+
+@keyframes nestSteam{
+    0%,70%{
+        opacity:0;
+        transform:translateX(-50%) translateY(20px);
+    }
+    74%{
+        opacity:1;
+    }
+    82%{
+        opacity:1;
+        transform:translateX(-50%) translateY(0);
+    }
+    84%,100%{
+        opacity:0;
+    }
+}
+
+
+/* =========================================================
+   STAGE 6 — SERVED IDIYAPPAM
+========================================================= */
+
+.serving-leaf{
+    position:absolute;
+    left:50%;
+    top:52%;
+    transform:translate(-50%,-50%);
+    width:450px;
+    height:280px;
+    border-radius:
+        60% 40% 55% 45% /
+        45% 55% 45% 55%;
+    background:
+        linear-gradient(
+            135deg,
+            #355d1d,
+            #7da743 40%,
+            #527c29 65%,
+            #2d5019
+        );
+    box-shadow:
+        0 25px 35px rgba(0,0,0,.55);
+}
+
+.serving-leaf:before{
+    content:"";
+    position:absolute;
+    left:8%;
+    right:8%;
+    top:50%;
+    height:4px;
+    background:rgba(255,255,255,.25);
+    transform:rotate(-4deg);
+}
+
+.served-idiyappam{
+    position:absolute;
+    width:145px;
+    height:95px;
+    border-radius:50%;
+    background:
+        repeating-radial-gradient(
+            ellipse,
+            #fff 0 3px,
+            #ded8c9 4px 6px
+        );
+    box-shadow:
+        0 10px 15px rgba(0,0,0,.4);
+    animation:servedAppear 18s infinite;
+}
+
+.served-idiyappam.i1{
+    left:65px;
+    top:45px;
+}
+
+.served-idiyappam.i2{
+    right:55px;
+    top:35px;
+}
+
+.served-idiyappam.i3{
+    left:155px;
+    bottom:28px;
+}
+
+@keyframes servedAppear{
+    0%,84%{
+        opacity:0;
+        transform:scale(.3) rotate(-15deg);
+    }
+    88%{
+        opacity:1;
+        transform:scale(1.08) rotate(3deg);
+    }
+    92%{
+        transform:scale(1) rotate(0);
+    }
+    100%{
+        opacity:1;
+    }
+}
+
+.served-curry{
+    position:absolute;
+    right:-45px;
+    bottom:20px;
+    width:110px;
+    height:75px;
+    border-radius:0 0 55px 55px;
+    background:
+        linear-gradient(
+            #e9dcb9,
+            #c9b47a
+        );
+    border:5px solid #9b7226;
+    box-shadow:0 10px 18px rgba(0,0,0,.45);
+}
+
+.served-curry:before{
+    content:"🍛";
+    position:absolute;
+    left:22px;
+    top:-40px;
+    font-size:65px;
+}
+
+
+/* =========================================================
+   FLOATING PARTICLES
+========================================================= */
+
+.particle{
+    position:absolute;
+    font-size:25px;
+    opacity:.65;
+    animation:particleFloat 5s infinite ease-in-out;
+    z-index:22;
+}
+
+.p1{
+    left:10%;
+    top:45%;
+}
+
+.p2{
+    left:85%;
+    top:25%;
+    animation-delay:1s;
+}
+
+.p3{
+    left:25%;
+    top:15%;
+    animation-delay:2s;
+}
+
+.p4{
+    right:15%;
+    top:50%;
+    animation-delay:3s;
+}
+
+@keyframes particleFloat{
+    0%,100%{
+        transform:translateY(0) rotate(0);
+    }
+    50%{
+        transform:translateY(-30px) rotate(180deg);
+    }
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.animation-buttons{
+    text-align:center;
+    margin:20px auto 40px;
+}
+
+.animation-buttons button{
+    padding:15px 25px;
+    margin:7px;
+    border:none;
+    border-radius:15px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    color:white;
+    background:
+        linear-gradient(135deg,#df6718,#7b2d09);
+    box-shadow:
+        0 6px 15px rgba(0,0,0,.3);
+    transition:.3s;
+}
+
+.animation-buttons button:hover{
+    transform:translateY(-5px) scale(1.03);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:
+        linear-gradient(135deg,#542008,#893c12);
+    color:white;
+    text-align:center;
+    padding:30px;
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:800px){
+
+    .form-grid,
+    .result-grid{
+        grid-template-columns:1fr;
+    }
+
+    .food-showcase{
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .stage{
+        height:500px;
+    }
+
+    .scene-inner{
+        transform:scale(.72);
+    }
+
+    .process-label{
+        min-width:280px;
+        font-size:14px;
+        padding:10px 16px;
+    }
+
+    .calc-overlay{
+        width:230px;
+        right:12px;
+        bottom:12px;
+        font-size:12px;
+    }
+
+    .calc-line{
+        font-size:12px;
+    }
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+@keyframes confettiFall{
+
+    to{
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+        opacity:0;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SLIDE 1
+===================================================== -->
+
+<section id="slide1" class="slide">
+
+<header>
+
+<h1>🍚 Idiyappam Calc</h1>
+
+<div class="header-food">
+🌾 🥥 🍛
+</div>
+
+</header>
+
+
+<div class="marquee">
+
+<span>
+🍚 MEASURE YOUR IDIYAPPAM • 🧵 KNOW YOUR STRAND LENGTH • 📏 MAKE FOOD MATHEMATICAL • 🍛 ENJOY YOUR MEAL •
+</span>
+
+</div>
+
+
+<section class="hero">
+
+<h2>
+How Long Is Your <span>Idiyappam?</span> 🍜
+</h2>
+
+<p>
+
+From flour ➜ dough ➜ pressing ➜ steaming ➜
+delicious Idiyappam!
+
+<br>
+
+Calculate the approximate total length of your
+Idiyappam strands.
+
+</p>
+
+</section>
+
+
+<section class="food-showcase">
+
+<div>
+
+<h2>🍚 Fresh Idiyappam</h2>
+
+<p style="margin-top:10px;">
+Soft • Steamy • Delicious
+</p>
+
+</div>
+
+
+<div class="plate">
+
+<div class="fake-idiyappam"></div>
+
+</div>
+
+
+<div>
+
+<div class="curry">
+🍛
+</div>
+
+<p style="text-align:center;">
+Delicious Curry
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CALCULATOR
+===================================================== -->
+
+<div class="container">
+
+<div class="calculator">
+
+<h3>
+🥣 Dough & Press Specifications
+</h3>
+
+
+<div class="form-grid">
+
+
+<div class="input-group">
+
+<label>
+Weight of Idiyappam Podi
+</label>
+
+<input
+type="number"
+id="flourMass"
+placeholder="Example: 200"
+min="0"
+step="any">
+
+<span class="unit">
+Grams (g)
+</span>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Salt Added
+</label>
+
+<input
+type="number"
+id="dryExtrasMass"
+placeholder="Example: 5"
+min="0"
+step="any">
+
+<span class="unit">
+Grams (g)
+</span>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Hot Water Added
+</label>
+
+<input
+type="number"
+id="hotWaterMass"
+placeholder="Example: 160"
+min="0"
+step="any">
+
+<span class="unit">
+Grams (g)
+</span>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Number of Holes
+</label>
+
+<input
+type="number"
+id="numberOfHoles"
+placeholder="Example: 30"
+min="1"
+step="1">
+
+<span class="unit">
+Holes in Idiyappam maker
+</span>
+
+</div>
+
+
+<div class="input-group">
+
+<label>
+Number of Idiyappam
+</label>
+
+<input
+type="number"
+id="numberOfIdiyappam"
+placeholder="Example: 10"
+min="1"
+step="1">
+
+<span class="unit">
+Number produced
+</span>
+
+</div>
+
+</div>
+
+
+<div class="density">
+
+<label>
+⚖️ Estimated Dough Density
+</label>
+
+<br>
+
+<input
+type="number"
+id="doughDensity"
+value="1.25"
+min="0.5"
+step="any">
+
+<span>
+g/cm³
+</span>
+
+</div>
+
+
+<button
+class="calculate"
+onclick="calculateLength()">
+
+📏 CALCULATE IDIYAPPAM LENGTH ✨
+
+</button>
+
+
+<div
+id="errorBox"
+class="error">
+
+⚠️ Please fill all fields with valid numbers.
+
+</div>
+
+
+<div id="results">
+
+
+<div class="result-grid">
+
+<div class="result-box">
+
+<h4>
+🧵 One Strand
+</h4>
+
+<p id="oneStrandResult">
+0.00 m
+</p>
+
+</div>
+
+
+<div class="result-box">
+
+<h4>
+🍚 One Idiyappam
+</h4>
+
+<p id="metersResult">
+0.00 m
+</p>
+
+</div>
+
+</div>
+
+
+<div class="total-box">
+
+<h4>
+🎉 TOTAL IDIYAPPAM LENGTH
+</h4>
+
+<p id="totalLengthResult">
+0.00 m
+</p>
+
+</div>
+
+
+<button
+class="watch-button"
+onclick="showAnimation()">
+
+🎬 WATCH REALISTIC IDIYAPPAM PROCESS →
+
+</button>
+
+
+<div class="formula">
+
+<h4>
+🧮 Culinary Mathematics
+</h4>
+
+<p>
+Total Dough Weight:
+<strong id="calcTotalMass">0</strong> g
+</p>
+
+<p>
+Weight per Idiyappam:
+<strong id="calcWeightPerIdiyappam">0</strong> g
+</p>
+
+<p>
+Volume:
+<strong id="calcVolume">0</strong> cm³
+</p>
+
+<p>
+Number of Holes:
+<strong id="calcHoles">0</strong>
+</p>
+
+<p>
+Number of Idiyappam:
+<strong id="calcIdiyappam">0</strong>
+</p>
+
+<p>
+Hole Radius:
+<strong>0.1 cm</strong>
+</p>
+
+<p>
+Area of One Hole:
+<strong id="calcSingleArea">0</strong> cm²
+</p>
+
+<p>
+Total Extrusion Area:
+<strong id="calcTotalArea">0</strong> cm²
+</p>
+
+<p>
+Length of One Strand:
+<strong id="calcStrandLength">0</strong> m
+</p>
+
+<p>
+Length of One Idiyappam:
+<strong id="calcOneLength">0</strong> m
+</p>
+
+<p>
+Total Length:
+<strong id="calcTotalLength">0</strong> m
+</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+</div>
+
+
+<footer>
+
+🍚 © 2026 Idiyappam Length Calculator 🍛
+
+<br>
+
+Making breakfast measurable!
+
+</footer>
+
+</section>
+
+
+
+<!-- =====================================================
+     SLIDE 2
+===================================================== -->
+
+<section id="slide2" class="slide">
+
+
+<div class="animation-header">
+
+<h1>
+🍚 THE REAL IDIYAPPAM JOURNEY
+</h1>
+
+<p>
+Watch the dough become thin strands through the 0.1 cm holes.
+</p>
+
+</div>
+
+
+<div class="progress-container">
+
+<div class="progress"></div>
+
+</div>
+
+
+<div class="stage">
+
+
+<div class="process-label"></div>
+
+
+<!-- PARTICLES -->
+
+<div class="particle p1">🌾</div>
+<div class="particle p2">✨</div>
+<div class="particle p3">🥥</div>
+<div class="particle p4">🍚</div>
+
+
+<!-- =====================================================
+     SCENE 1 — MIXING
+===================================================== -->
+
+<div class="scene mixing">
+
+<div class="scene-inner">
+
+<div class="mixing-table"></div>
+
+<div class="real-bowl"></div>
+
+<div class="flour"></div>
+
+<div class="hot-water"></div>
+
+<div class="water-drops">
+💧 💧 💧
+</div>
+
+<div class="spoon">
+🥄
+</div>
+
+<div class="mixing-steam">
+♨️
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SCENE 2 — KNEADING
+===================================================== -->
+
+<div class="scene kneading">
+
+<div class="scene-inner">
+
+<div class="knead-board"></div>
+
+<div class="knead-dough"></div>
+
+<div class="hand-left">
+🤲
+</div>
+
+<div class="hand-right">
+🤲
+</div>
+
+<div class="oil-shine">
+💧
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SCENE 3 — FILLING PRESS
+===================================================== -->
+
+<div class="scene filling">
+
+<div class="scene-inner">
+
+<div class="press-body"></div>
+
+<div class="press-rim"></div>
+
+<div class="press-top"></div>
+
+<div class="dough-inside"></div>
+
+<div class="filling-hand">
+🖐️
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SCENE 4 — PRESSING
+===================================================== -->
+
+<div class="scene pressing">
+
+<div class="scene-inner">
+
+<div class="press-floor"></div>
+
+<div class="hole-disc"></div>
+
+<div class="press-dough"></div>
+
+
+<!-- PRESS HEAD -->
+
+<div class="real-press-head">
+
+<div class="press-handle"></div>
+
+<div class="press-neck"></div>
+
+</div>
+
+
+<!-- 0.1 CM HOLES -->
+
+<div class="holes">
+
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+<div class="hole"></div>
+
+</div>
+
+
+<!-- EXTRUDED STRANDS -->
+
+<div class="extrusion">
+
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+<div class="strand"></div>
+
+</div>
+
+
+<!-- FINISHED SPIRAL -->
+
+<svg
+class="nest-svg"
+viewBox="0 0 360 190">
+
+<path
+class="nest-shadow"
+d="
+M180 95
+C140 45 75 45 70 95
+C65 145 135 165 180 120
+C225 75 290 70 295 115
+C300 160 230 175 180 130
+C125 80 95 70 80 105
+C65 140 125 160 175 135
+C225 110 265 105 280 130
+C295 155 245 175 195 145
+C145 115 115 95 105 120
+C95 145 140 155 180 140
+C220 125 250 130 260 145
+"></path>
+
+<path
+d="
+M180 95
+C140 45 75 45 70 95
+C65 145 135 165 180 120
+C225 75 290 70 295 115
+C300 160 230 175 180 130
+C125 80 95 70 80 105
+C65 140 125 160 175 135
+C225 110 265 105 280 130
+C295 155 245 175 195 145
+C145 115 115 95 105 120
+C95 145 140 155 180 140
+C220 125 250 130 260 145
+"></path>
+
+</svg>
+
+
+<!-- LIVE CALCULATION -->
+
+<div class="calc-overlay">
+
+<h3>
+📐 Pressing Mathematics
+</h3>
+
+<div class="calc-line">
+<span>Hole radius</span>
+<strong id="animRadius">0.1 cm</strong>
+</div>
+
+<div class="calc-line">
+<span>Number of holes</span>
+<strong id="animHoles">0</strong>
+</div>
+
+<div class="calc-line">
+<span>Hole area</span>
+<strong id="animArea">0 cm²</strong>
+</div>
+
+<div class="calc-line">
+<span>Volume</span>
+<strong id="animVolume">0 cm³</strong>
+</div>
+
+<div class="calc-line">
+<span>Strand length</span>
+<strong id="animStrand">0 m</strong>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SCENE 5 — STEAMING
+===================================================== -->
+
+<div class="scene steaming">
+
+<div class="scene-inner">
+
+<div class="steam-pot">
+
+<div class="pot-bottom"></div>
+
+<div class="steam-tier one"></div>
+<div class="steam-tier two"></div>
+<div class="steam-tier three"></div>
+
+<div class="steam-lid">
+<div class="lid-knob"></div>
+</div>
+
+</div>
+
+
+<div class="steamed-nest"></div>
+
+<div class="steam s1">
+♨️
+</div>
+
+<div class="steam s2">
+♨️
+</div>
+
+<div class="steam s3">
+♨️
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     SCENE 6 — SERVED
+===================================================== -->
+
+<div class="scene served">
+
+<div class="scene-inner">
+
+<div class="serving-leaf">
+
+<div class="served-idiyappam i1"></div>
+
+<div class="served-idiyappam i2"></div>
+
+<div class="served-idiyappam i3"></div>
+
+<div class="served-curry"></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<div class="animation-buttons">
+
+<button onclick="restartAnimation()">
+🔄 REPLAY ANIMATION
+</button>
+
+<button onclick="backToCalculator()">
+⬅️ BACK TO CALCULATOR
+</button>
+
+</div>
+
+
+</section>
+
+
+
+<script>
+
+/* =========================================================
+   CONSTANTS
+========================================================= */
+
+const HOLE_RADIUS_CM = 0.1;
+
+let lastCalculation = {
+    holes:0,
+    volume:0,
+    strand:0,
+    area:0
+};
+
+
+/* =========================================================
+   CALCULATOR
+========================================================= */
+
+function calculateLength(){
+
+    const flourMass =
+        parseFloat(
+            document.getElementById("flourMass").value
+        );
+
+    const dryExtrasMass =
+        parseFloat(
+            document.getElementById("dryExtrasMass").value
+        );
+
+    const hotWaterMass =
+        parseFloat(
+            document.getElementById("hotWaterMass").value
+        );
+
+    const holes =
+        parseInt(
+            document.getElementById("numberOfHoles").value
+        );
+
+    const idiyappam =
+        parseInt(
+            document.getElementById("numberOfIdiyappam").value
+        );
+
+    const density =
+        parseFloat(
+            document.getElementById("doughDensity").value
+        );
+
+    const error =
+        document.getElementById("errorBox");
+
+    const results =
+        document.getElementById("results");
+
+
+    /* VALIDATION */
+
+    if(
+
+        isNaN(flourMass) ||
+        flourMass < 0 ||
+
+        isNaN(dryExtrasMass) ||
+        dryExtrasMass < 0 ||
+
+        isNaN(hotWaterMass) ||
+        hotWaterMass < 0 ||
+
+        isNaN(holes) ||
+        holes <= 0 ||
+
+        isNaN(idiyappam) ||
+        idiyappam <= 0 ||
+
+        isNaN(density) ||
+        density <= 0 ||
+
+        flourMass +
+        dryExtrasMass +
+        hotWaterMass <= 0
+
+    ){
+
+        error.style.display="block";
+
+        results.style.display="none";
+
+        return;
+
+    }
+
+
+    error.style.display="none";
+
+
+    /* =====================================================
+       TOTAL DOUGH
+    ===================================================== */
+
+    const totalDough =
+        flourMass +
+        dryExtrasMass +
+        hotWaterMass;
+
+
+    /* =====================================================
+       WEIGHT PER IDIYAPPAM
+    ===================================================== */
+
+    const weightPer =
+        totalDough /
+        idiyappam;
+
+
+    /* =====================================================
+       VOLUME
+    ===================================================== */
+
+    const volume =
+        weightPer /
+        density;
+
+
+    /* =====================================================
+       AREA OF ONE 0.1 CM HOLE
+    ===================================================== */
+
+    const singleArea =
+        Math.PI *
+        Math.pow(
+            HOLE_RADIUS_CM,
+            2
+        );
+
+
+    /* =====================================================
+       TOTAL EXTRUSION AREA
+    ===================================================== */
+
+    const totalArea =
+        singleArea *
+        holes;
+
+
+    /* =====================================================
+       LENGTH OF ONE STRAND
+    ===================================================== */
+
+    const strandCm =
+        volume /
+        totalArea;
+
+    const strandMeters =
+        strandCm /
+        100;
+
+
+    /* =====================================================
+       LENGTH OF ONE IDIYAPPAM
+    ===================================================== */
+
+    const oneLength =
+        strandMeters *
+        holes;
+
+
+    /* =====================================================
+       TOTAL LENGTH
+    ===================================================== */
+
+    const totalLength =
+        oneLength *
+        idiyappam;
+
+
+    /* =====================================================
+       SAVE FOR ANIMATION
+    ===================================================== */
+
+    lastCalculation = {
+
+        holes:holes,
+
+        volume:volume,
+
+        strand:strandMeters,
+
+        area:singleArea
+
+    };
+
+
+    /* =====================================================
+       DISPLAY RESULTS
+    ===================================================== */
+
+    document.getElementById(
+        "oneStrandResult"
+    ).innerText =
+        strandMeters.toFixed(2)+" m";
+
+
+    document.getElementById(
+        "metersResult"
+    ).innerText =
+        oneLength.toFixed(2)+" m";
+
+
+    document.getElementById(
+        "totalLengthResult"
+    ).innerText =
+        totalLength.toFixed(2)+" m";
+
+
+    document.getElementById(
+        "calcTotalMass"
+    ).innerText =
+        totalDough.toFixed(2);
+
+
+    document.getElementById(
+        "calcWeightPerIdiyappam"
+    ).innerText =
+        weightPer.toFixed(2);
+
+
+    document.getElementById(
+        "calcVolume"
+    ).innerText =
+        volume.toFixed(2);
+
+
+    document.getElementById(
+        "calcHoles"
+    ).innerText =
+        holes;
+
+
+    document.getElementById(
+        "calcIdiyappam"
+    ).innerText =
+        idiyappam;
+
+
+    document.getElementById(
+        "calcSingleArea"
+    ).innerText =
+        singleArea.toFixed(4);
+
+
+    document.getElementById(
+        "calcTotalArea"
+    ).innerText =
+        totalArea.toFixed(4);
+
+
+    document.getElementById(
+        "calcStrandLength"
+    ).innerText =
+        strandMeters.toFixed(2);
+
+
+    document.getElementById(
+        "calcOneLength"
+    ).innerText =
+        oneLength.toFixed(2);
+
+
+    document.getElementById(
+        "calcTotalLength"
+    ).innerText =
+        totalLength.toFixed(2);
+
+
+    /* =====================================================
+       ANIMATION CALCULATION
+    ===================================================== */
+
+    document.getElementById(
+        "animHoles"
+    ).innerText =
+        holes;
+
+
+    document.getElementById(
+        "animArea"
+    ).innerText =
+        singleArea.toFixed(4)+" cm²";
+
+
+    document.getElementById(
+        "animVolume"
+    ).innerText =
+        volume.toFixed(2)+" cm³";
+
+
+    document.getElementById(
+        "animStrand"
+    ).innerText =
+        strandMeters.toFixed(2)+" m";
+
+
+    /* =====================================================
+       SHOW RESULTS
+    ===================================================== */
+
+    results.style.display="block";
+
+
+    createConfetti();
+
+
+    setTimeout(function(){
+
+        results.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+
+    },300);
+
+}
+
+
+/* =========================================================
+   CONFETTI
+========================================================= */
+
+function createConfetti(){
+
+    const emojis=[
+        "🍚",
+        "✨",
+        "🌾",
+        "🥥",
+        "🍛",
+        "🎉"
+    ];
+
+    for(let i=0;i<35;i++){
+
+        const piece =
+            document.createElement("div");
+
+        piece.style.position="fixed";
+
+        piece.style.top="-30px";
+
+        piece.style.left =
+            Math.random()*100+"vw";
+
+        piece.style.fontSize =
+            (15+Math.random()*20)+"px";
+
+        piece.style.zIndex="9999";
+
+        piece.innerText =
+            emojis[
+                Math.floor(
+                    Math.random()*emojis.length
+                )
+            ];
+
+        piece.style.animation =
+            "confettiFall "+
+            (2+Math.random()*2)+
+            "s linear forwards";
+
+        document.body.appendChild(piece);
+
+        setTimeout(function(){
+
+            piece.remove();
+
+        },4500);
+
+    }
+
+}
+
+
+/* =========================================================
+   SHOW ANIMATION
+========================================================= */
+
+function showAnimation(){
+
+    if(lastCalculation.holes === 0){
+
+        alert(
+            "Please calculate the Idiyappam length first."
+        );
+
+        return;
+
+    }
+
+    document.getElementById(
+        "slide1"
+    ).style.display="none";
+
+    document.getElementById(
+        "slide2"
+    ).style.display="block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+    restartAnimation();
+
+}
+
+
+/* =========================================================
+   RESTART ANIMATION
+========================================================= */
+
+function restartAnimation(){
+
+    const stage =
+        document.querySelector(".stage");
+
+    const animatedElements =
+        stage.querySelectorAll("*");
+
+    /*
+       Temporarily remove animation.
+       This forces the browser to restart
+       every animation from the beginning.
+    */
+
+    stage.classList.remove("restart-animation");
+
+    animatedElements.forEach(function(el){
+
+        el.style.animationPlayState="paused";
+
+    });
+
+    void stage.offsetWidth;
+
+    animatedElements.forEach(function(el){
+
+        el.style.animationPlayState="running";
+
+    });
+
+}
+
+
+/* =========================================================
+   BACK TO CALCULATOR
+========================================================= */
+
+function backToCalculator(){
+
+    document.getElementById(
+        "slide2"
+    ).style.display="none";
+
+    document.getElementById(
+        "slide1"
+    ).style.display="block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.code === "Space" &&
+            document.getElementById(
+                "slide2"
+            ).style.display === "block"
+        ){
+
+            event.preventDefault();
+
+            restartAnimation();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
