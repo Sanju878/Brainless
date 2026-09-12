@@ -2,7 +2,7 @@
 
 
 
-# [Project Name] 🎯
+# Idiyappam Calc 🎯
 
 
 ## Basic Details
@@ -25,20 +25,24 @@ We found out the way to calculate the length of idiyappam strands by taking the 
 ### Technologies/Components Used
 For Software:
 - Html,Css,Javascript
-- [Frameworks used]
-- [Libraries used]
 - Vercel
 
-### Implementation
-For Software:
-# Installation
-[commands]
-
 # Run
-[commands]
+Directly in Browser
+
+1.Locate index.html.
+2.Double-click the file.
+3.It will open in the default web browser.
+4.Enter the required values:
+  .Idiyappam podi weight
+  .Other dry ingredients weight
+  .Boiling water weight
+  .Number of idiyappam
+  .Number of holes in the idiyappam maker
+5.Click Calculate to display the results.
 
 ### Project Documentation
-For Software:
+For Software: Used basic frontend, html, css, javascript
 
 # Screenshots (Add at least 3)
 https://drive.google.com/drive/folders/1Cp9882Ro-pt_BOG2d40MtbJr05T94sIK?usp=drive_link
@@ -48,8 +52,6 @@ https://drive.google.com/drive/folders/1Cp9882Ro-pt_BOG2d40MtbJr05T94sIK?usp=dri
 [Add your demo video link here]
 *Explain what the video demonstrates*
 
-# Additional Demos
-[Add any extra demo materials/links]
 
 ## Team Contributions
 - Sanju Baiju : Backend
