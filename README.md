@@ -6,35 +6,28 @@
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Brainless
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Sanju Baiju  - Christ College of Engineering
+- Member 2:  Sandra Shaju - Christ College of Engineering
 
 ### Project Description
-[2-3 lines about what your project does]
+Calculating the length of idiyappam. By adding the weight of all things added like idiyappam podi, salt and water we can calculate the volume by considering an estimate density. By taking the number of holes in the idiyappam maker,considering the radius of the holes in idiyappam maker, and the number of idiyappam made we can calculate the length of strands in idiyappam.
 
 ### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
-
+We don't know the length of the strands in the idiyappam which we eat.So we can't control our diet.
 ### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+We found out the way to calculate the length of idiyappam strands by taking the total weight,number of holes in idiyappam maker and number of idiyappam made.
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
+- Html,Css,Javascript
 - [Frameworks used]
 - [Libraries used]
-- [Tools used]
-
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+- Vercel
 
 ### Implementation
 For Software:
@@ -48,37 +41,7 @@ For Software:
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
-
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
-
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
+https://drive.google.com/drive/folders/1Cp9882Ro-pt_BOG2d40MtbJr05T94sIK?usp=drive_link
 
 ### Project Demo
 # Video
@@ -89,9 +52,8 @@ For Hardware:
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Sanju Baiju : Backend
+- Sandra shajju : Frontend
 
 ---
 Made with ❤️ at TinkerHub Useless Projects 
